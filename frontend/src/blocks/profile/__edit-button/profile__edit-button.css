@@ -1,0 +1,21 @@
+.profile__edit-button {
+  background: url(../../../image/icon-pencil.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 10px;
+  padding: 0px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border: 1px solid #FFFFFF;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 568px) {
+  .profile__edit-button {
+    background-size: 7.5px 7.5px;
+    width: 18px;
+    height: 18px;
+  }
+}

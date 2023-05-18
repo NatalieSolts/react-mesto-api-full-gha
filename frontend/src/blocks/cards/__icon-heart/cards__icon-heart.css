@@ -1,0 +1,8 @@
+.cards__icon-heart {
+  cursor: pointer;
+  padding: 10px 11px 9px;
+  border-style: none;
+  background: url(../../../image/icon-heart.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}

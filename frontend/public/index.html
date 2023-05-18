@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки">
+  <meta name="keywords" content="Место, интересные места, лайки, добавить фотографии">
+  <meta name="author" content="Наталья Сольц">
+  <title>Место</title>
+</head>
+<body class="body">
+  <div id="root"></div>
+  <!-- Template -->
+  <template id="cards-template">
+    <li class="cards__card">
+      <img class="cards__image" src=" " alt="Изображение места">
+      <button class="cards__delete button-hover" type="button"></button>
+      <div class="cards__description">
+        <h2 class="cards__name"></h2>
+        <div class="cards__like-group">
+          <button class="cards__icon-heart button-hover" type="button"></button>
+          <p class="cards__number-of-likes">0</p>
+        </div>
+      </div>
+    </li>
+  </template>
+</body>
+</html>

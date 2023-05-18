@@ -1,0 +1,25 @@
+.page {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  margin: auto;
+  max-width: 880px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media screen and (max-width: 984px) {
+  .page {
+    max-width: 581px;
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .page {
+    padding: 0;
+  }
+}

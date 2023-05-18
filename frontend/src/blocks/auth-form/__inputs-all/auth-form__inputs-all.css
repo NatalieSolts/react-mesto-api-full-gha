@@ -1,0 +1,7 @@
+.auth-form__inputs-all {
+  margin-bottom: 216px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: black;
+}

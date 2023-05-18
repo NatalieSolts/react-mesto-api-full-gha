@@ -1,0 +1,7 @@
+.header__container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: flex-end;
+  margin-top: 6px;
+  align-items: center;
+}
