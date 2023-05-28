@@ -17,14 +17,16 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
+      credentials: 'include',
     }).then((res) => this._getResponseData(res));
   }
 
   // Редактирование профиля
   sendUserInfo(userData) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: userData.name,
         about: userData.about,
@@ -37,6 +39,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar/`, {
       method: "PATCH",
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         avatar: userData.avatar,
       }),
@@ -47,6 +50,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards/`, {
       headers: this._headers,
+      credentials: 'include',
     }).then((res) => this._getResponseData(res));
   }
 
@@ -55,6 +59,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/`, {
       method: "POST",
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         link: link,
@@ -67,6 +72,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/` + _id, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include',
     }).then((res) => this._getResponseData(res));
   }
 
@@ -74,6 +80,7 @@ class Api {
   _addLike(_id) {
     return fetch(`${this._baseUrl}/cards/likes/` + _id, {
       method: "PUT",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
@@ -83,6 +90,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/likes/` + _id, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include',
     }).then((res) => this._getResponseData(res));
   }
 
