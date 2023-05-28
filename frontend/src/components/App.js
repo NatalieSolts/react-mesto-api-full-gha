@@ -39,7 +39,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            navigate("/react-mesto-auth", { replace: true });
+            navigate("/", { replace: true });
             setEmail(res.data.email);
           }
         })
@@ -184,7 +184,7 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={
               loggedIn ? (
@@ -193,7 +193,7 @@ function App() {
                 <Navigate to="/sign-up" replace />
               )
             }
-          />
+          /> */}
           <Route
             path="/sign-in"
             element={
@@ -211,7 +211,7 @@ function App() {
             }
           />
           <Route
-            path="/react-mesto-auth"
+            path="/"
             element={
               <ProtectedRouteElement
                 element={Main}
@@ -228,6 +228,7 @@ function App() {
               />
             }
           />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
 
         <Footer />
