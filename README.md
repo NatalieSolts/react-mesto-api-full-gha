@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.18.105
+IP 158.160.18.105
 
 Frontend https://nata.nomoredomains.rocks
 
