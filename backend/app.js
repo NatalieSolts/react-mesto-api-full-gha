@@ -6,13 +6,20 @@ const validationErrors = require('celebrate').errors;
 const cors = require('cors');
 const router = require('./routes/index');
 const errors = require('./middlewares/errors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 // Слушаем 3000 порт
 const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(cors({
-  origin: '*',
+  origin: [
+    'https://nata.nomoredomains.rocks',
+    'http://nata.nomoredomains.rocks',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://158.160.18.105:3000',
+  ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -28,9 +35,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(requestLogger);
 app.use(router);
-
+app.use(errorLogger);
 app.use(validationErrors());
 app.use(errors);
 
