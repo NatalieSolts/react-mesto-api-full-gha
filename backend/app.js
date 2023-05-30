@@ -15,14 +15,14 @@ const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(cors({
-  // origin: [
-  //   'https://nata.nomoredomains.rocks',
-  //   'http://nata.nomoredomains.rocks',
-  //   'http://localhost:3000',
-  //   'http://localhost:3001',
-  //   'http://158.160.18.105:3000',
-  // ],
-  origin: true,
+  origin: [
+    'https://nata.nomoredomains.rocks',
+    'http://nata.nomoredomains.rocks',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://158.160.18.105:3000',
+  ],
+  // origin: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -34,6 +34,8 @@ app.use(cors({
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
 });
+// .then(() => console.log('Connection is ok'))
+// .catch((err) => console.log(err));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
