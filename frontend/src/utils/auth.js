@@ -51,7 +51,7 @@ class Auth {
 }
 
 const auth = new Auth({
-  baseUrl: "api.nata.nomoredomains.rocks",
+  baseUrl: "https://api.nata.nomoredomains.rocks",
   headers: {
     "Content-Type": "application/json",
   },
