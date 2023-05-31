@@ -20,7 +20,7 @@ app.use(cors({
     'http://nata.nomoredomains.rocks',
     'http://localhost:3000',
     'http://localhost:3001',
-    'http://158.160.18.105:3000',
+    'http://158.160.1.163:3000',
   ],
   // origin: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
