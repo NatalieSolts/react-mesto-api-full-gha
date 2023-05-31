@@ -13,7 +13,7 @@ class Auth {
   }
 
   register(newUserData) {
-    return fetch(`${this._baseUrl}/signup`, {
+    return fetch(`${this._baseUrl}/sign-up`, {
       method: "POST",
       headers: this._headers,
       credentials: 'include',
@@ -25,7 +25,7 @@ class Auth {
   }
 
   login(userData) {
-    return fetch(`${this._baseUrl}/signin`, {
+    return fetch(`${this._baseUrl}/sign-in`, {
       method: "POST",
       headers: this._headers,
       credentials: 'include',
