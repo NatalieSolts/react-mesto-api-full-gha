@@ -101,7 +101,7 @@ class Api {
 
 const api = new Api({
   // baseUrl: "https://mesto.nomoreparties.co/v1/cohort-59",
-  baseUrl: "https://nata.nomoredomains.rocks",
+  baseUrl: "https://api.nata.nomoredomains.rocks",
   headers: {
     //authorization: "93a90e29-0cdc-487a-9ed4-31b8026d8e92",
     "Content-Type": "application/json",
