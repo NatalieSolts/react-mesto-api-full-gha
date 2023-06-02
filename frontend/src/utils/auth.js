@@ -41,6 +41,14 @@ class Auth {
       })
   }
 
+  logout() {
+    return fetch(`${this._baseUrl}/sign-out`, {
+      method: 'GET',
+      headers: this._headers,
+      credentials: 'include',
+    }).then((res) => this._getResponseData(res));
+  }
+
   // Проверка корректности токена через запрос на эндпоинт /users/me
   // При повторном визите пользователи не должны вновь авторизовываться
   checkToken(token) {

@@ -99,8 +99,12 @@ function App() {
 
   function handleSignout() {
     setLoggedIn(false);
-    localStorage.removeItem("token");
+    //localStorage.removeItem("token");
+    auth
+      .logout()
+      .then()
     navigate("/sign-in", { replace: true });
+    closeAllPopups();
   }
 
   function handleEditProfileClick() {
