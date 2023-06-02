@@ -7,7 +7,7 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 router.use('/signin', require('./signin'));
 router.use('/signup', require('./signup'));
 
-router.get('/sign-out', logout);
+router.post('/sign-out', logout);
 router.use('/users', auth, require('./users'));
 router.use('/cards', auth, require('./cards'));
 

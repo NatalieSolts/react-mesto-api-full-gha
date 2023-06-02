@@ -43,7 +43,7 @@ class Auth {
 
   logout() {
     return fetch(`${this._baseUrl}/sign-out`, {
-      method: 'GET',
+      method: 'POST',
       headers: this._headers,
       credentials: 'include',
     }).then((res) => this._getResponseData(res));

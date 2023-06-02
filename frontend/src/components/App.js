@@ -98,13 +98,17 @@ function App() {
   }
 
   function handleSignout() {
-    setLoggedIn(false);
-    //localStorage.removeItem("token");
     auth
       .logout()
-      .then()
-    navigate("/sign-in", { replace: true });
-    closeAllPopups();
+      .then(() => {
+        setLoggedIn(false)
+        localStorage.removeItem("token")
+        navigate("/sign-in", { replace: true })
+        closeAllPopups()
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleEditProfileClick() {
