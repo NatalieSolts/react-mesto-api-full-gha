@@ -3,6 +3,16 @@ const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, SECRET_KEY } = process.env;
 
+const {
+  ValidationError,
+  DocumentNotFoundError,
+  CastError,
+} = require('mongoose').Error;
+
+const NotFoundError = require('../utils/errors/NotFoundError');
+const IncorrectDataError = require('../utils/errors/IncorrectDataError');
+const ConflictError = require('../utils/errors/ConflictError');
+
 const { CREATED_CODE } = require('../utils/constants');
 
 const User = require('../models/user');
@@ -18,7 +28,15 @@ const getUserById = (req, res, id, next) => {
   User.findById(id)
     .orFail()
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof DocumentNotFoundError) {
+        next(new NotFoundError('В базе данных не найден пользователь с данным ID.'));
+      }
+      if (err instanceof CastError) {
+        next(new IncorrectDataError('Передан некорректный ID пользователя.'));
+      }
+      next(err);
+    });
 };
 
 // возвращает информацию о текущем пользователе
@@ -47,7 +65,15 @@ module.exports.createUser = (req, res, next) => {
       delete userData.password;
       res.status(CREATED_CODE).send(userData);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof ValidationError) {
+        next(new IncorrectDataError('Переданы некорректные данные для создания пользователя.'));
+      }
+      if (err.code === 11000) {
+        next(new ConflictError('Указанный email уже зарегистрирован. Пожалуйста используйте другой email'));
+      }
+      next(err);
+    });
 };
 
 const updateInfo = (req, res, dataToUpdate, next) => {
@@ -59,7 +85,18 @@ const updateInfo = (req, res, dataToUpdate, next) => {
   )
     .orFail()
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof DocumentNotFoundError) {
+        next(new NotFoundError(`В базе данных не найден пользователь с ID: ${req.user._id}.`));
+      }
+      if (err instanceof CastError) {
+        next(new IncorrectDataError(`Передан некорректный ID пользователя: ${req.user._id}.`));
+      }
+      if (err instanceof ValidationError) {
+        next(new IncorrectDataError('Переданы некорректные данные для редактирования профиля.'));
+      }
+      next(err);
+    });
 };
 
 // PATCH /users/me — обновляет профиль
@@ -89,7 +126,12 @@ module.exports.login = (req, res, next) => {
       });
       res.send({ token });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof ValidationError) {
+        next(new IncorrectDataError('Переданы некорректные данные для входа.'));
+      }
+      next(err);
+    });
 };
 
 module.exports.logout = (req, res) => {
