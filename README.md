@@ -11,6 +11,6 @@
 <!-- IP 158.160.18.105 -->
 IP 158.160.1.163
 
-Frontend https://nata.nomoredomains.rocks
+Frontend https://nata.nomoredomains.rocks/
 
-Backend https://api.nata.nomoredomains.rocks
+Backend https://api.nata.nomoredomains.rocks/
