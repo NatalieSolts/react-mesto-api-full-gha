@@ -59,42 +59,29 @@ module.exports.deleteCard = (req, res, next) => {
     });
 };
 
-// PUT /cards/:cardId/likes — поставить лайк карточке
-module.exports.likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
+const cardLikesUpdate = (req, res, updateData, next) => {
+  Card.findByIdAndUpdate(req.params.cardId, updateData, { new: true })
     .orFail()
     .then((card) => res.send(card))
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
-        next(new NotFoundError(`В базе данных не найдена карточка с ID: ${req.params.cardId}.`));
+        next(new NotFoundError('В базе данных не найдена карточка с данным ID'));
+      } else if (err instanceof CastError) {
+        next(new IncorrectDataError('Передан некорректный ID карточки'));
+      } else {
+        next(err);
       }
-      if (err instanceof CastError) {
-        next(new IncorrectDataError(`Передан некорректный ID карточки: ${req.params.cardId}.`));
-      }
-      next(err);
     });
+};
+
+// PUT /cards/:cardId/likes — поставить лайк карточке
+module.exports.likeCard = (req, res, next) => {
+  const updateData = { $addToSet: { likes: req.user._id } };
+  cardLikesUpdate(req, res, updateData, next);
 };
 
 // DELETE /cards/:cardId/likes — убрать лайк с карточки
 module.exports.dislikeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  )
-    .orFail()
-    .then((card) => res.send(card))
-    .catch((err) => {
-      if (err instanceof DocumentNotFoundError) {
-        next(new NotFoundError(`В базе данных не найдена карточка с ID: ${req.params.cardId}.`));
-      }
-      if (err instanceof CastError) {
-        next(new IncorrectDataError(`Передан некорректный ID карточки: ${req.params.cardId}.`));
-      }
-      next(err);
-    });
+  const updateData = { $pull: { likes: req.user._id } };
+  cardLikesUpdate(req, res, updateData, next);
 };
