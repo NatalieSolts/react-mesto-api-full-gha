@@ -40,7 +40,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             navigate("/", { replace: true });
-            setEmail(res.data.email);
+            setEmail(res.email);
           }
         })
         .catch((err) => console.log(err));
@@ -53,7 +53,7 @@ function App() {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([userRes, cardsRes]) => {
           setCurrentUser(userRes);
-          setCards(cardsRes);
+          setCards(cardsRes.reverse());
         })
         .catch((err) => console.log(err));
     }
@@ -63,12 +63,10 @@ function App() {
     auth
       .login(userData)
       .then((res) => {
-        if (res.token) {
-          localStorage.setItem("token", res.token);
-          setLoggedIn(true);
-          setEmail(userData.email);
-          navigate("/", { replace: true });
-        }
+        localStorage.setItem("token", res.token);
+        setLoggedIn(true);
+        setEmail(userData.email);
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -192,16 +190,6 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          {/* <Route
-            path="/"
-            element={
-              loggedIn ? (
-                <Navigate to="/react-mesto-auth" replace />
-              ) : (
-                <Navigate to="/sign-up" replace />
-              )
-            }
-          /> */}
           <Route
             path="/sign-in"
             element={
