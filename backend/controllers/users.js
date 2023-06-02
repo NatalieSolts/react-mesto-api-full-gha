@@ -17,7 +17,7 @@ module.exports.getAllUsers = (req, res, next) => {
 const getUserById = (req, res, id, next) => {
   User.findById(id)
     .orFail()
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
