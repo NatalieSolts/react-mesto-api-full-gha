@@ -52,7 +52,7 @@ function Main({
           <ul className="cards__list">
             {
               Array.isArray(cards)
-                ? cards.map((card) => (
+                ? cards.reverse((card) => (
                 <Card
                   card={card}
                   key={card._id}
