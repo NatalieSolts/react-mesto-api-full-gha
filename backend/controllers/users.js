@@ -45,7 +45,7 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       const userData = user.toObject();
       delete userData.password;
-      res.status(CREATED_CODE).send({ data: userData });
+      res.status(CREATED_CODE).send(userData);
     })
     .catch(next);
 };
@@ -58,7 +58,7 @@ const updateInfo = (req, res, dataToUpdate, next) => {
     { new: true, runValidators: true },
   )
     .orFail()
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 

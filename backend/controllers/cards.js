@@ -15,7 +15,7 @@ module.exports.createCard = (req, res, next) => {
   const id = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner: id })
-    .then((card) => res.status(CREATED_CODE).send({ data: card }))
+    .then((card) => res.status(CREATED_CODE).send(card))
     .catch(next);
 };
 
@@ -45,7 +45,7 @@ module.exports.likeCard = (req, res, next) => {
   )
     .orFail()
     .populate(['owner', 'likes'])
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch(next);
 };
 
@@ -58,6 +58,6 @@ module.exports.dislikeCard = (req, res, next) => {
   )
     .orFail()
     .populate(['owner', 'likes'])
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch(next);
 };
