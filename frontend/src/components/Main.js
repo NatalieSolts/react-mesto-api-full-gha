@@ -50,15 +50,19 @@ function Main({
         </section>
         <section className="cards" aria-label="Карточки с изображением мест">
           <ul className="cards__list">
-            {cards.map((card) => (
-              <Card
-                card={card}
-                key={card._id}
-                onCardClick={onCardClick}
-                onCardLike={onCardLike}
-                onCardDelete={onCardDelete}
-              />
-            ))}
+            {
+              Array.isArray(cards)
+                ? cards.map((card) => (
+                <Card
+                  card={card}
+                  key={card._id}
+                  onCardClick={onCardClick}
+                  onCardLike={onCardLike}
+                  onCardDelete={onCardDelete}
+                />
+                ))
+                : ''
+            }
           </ul>
         </section>
       </main>
