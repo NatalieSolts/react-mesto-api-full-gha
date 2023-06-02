@@ -33,7 +33,12 @@ class Auth {
         email: userData.email,
         password: userData.password,
       }),
-    }).then((res) => this._getResponseData(res));
+    }).then((res) => this._getResponseData(res))
+      .then((data) => {
+        if (data.token) {
+          return data
+        }
+      })
   }
 
   // Проверка корректности токена через запрос на эндпоинт /users/me
@@ -53,6 +58,7 @@ class Auth {
 const auth = new Auth({
   baseUrl: "https://api.nata.nomoredomains.rocks",
   headers: {
+    'Accept': 'application/json',
     "Content-Type": "application/json",
   },
 });
