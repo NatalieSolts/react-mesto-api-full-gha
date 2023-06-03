@@ -8,7 +8,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   // Создаём переменную, которую зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = `cards__icon-heart button-hover ${
-    isLiked && "cards__icon-heart_is-active"
+    isLiked ? "cards__icon-heart_is-active" : ""
   }`;
 
   function handleClick() {
