@@ -78,7 +78,7 @@ class Api {
 
   // Постановка лайка карточки
   _addLike(_id) {
-    return fetch(`${this._baseUrl}/cards/likes/` + _id, {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes/`, {
       method: "PUT",
       credentials: 'include',
       headers: this._headers,
@@ -87,7 +87,7 @@ class Api {
 
   // Снятие лайка
   _deleteLike(_id) {
-    return fetch(`${this._baseUrl}/cards/likes/` + _id, {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes/`, {
       method: "DELETE",
       headers: this._headers,
       credentials: 'include',
