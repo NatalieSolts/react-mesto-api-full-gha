@@ -62,12 +62,13 @@ module.exports.deleteCard = (req, res, next) => {
 const cardLikesUpdate = (req, res, updateData, next) => {
   Card.findByIdAndUpdate(req.params.cardId, updateData, { new: true })
     .orFail()
+    .populate(['owner', 'likes'])
     .then((card) => res.send(card))
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
-        next(new NotFoundError('В базе данных не найдена карточка с данным ID'));
+        next(new NotFoundError('Такая карточка не найдена'));
       } else if (err instanceof CastError) {
-        next(new IncorrectDataError('Передан некорректный ID карточки'));
+        next(new IncorrectDataError('Карточки не существует'));
       } else {
         next(err);
       }
