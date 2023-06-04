@@ -6,7 +6,7 @@ const { NODE_ENV, SECRET_KEY } = process.env;
 const {
   ValidationError,
   DocumentNotFoundError,
-  CastError,
+  // CastError,
 } = require('mongoose').Error;
 
 const NotFoundError = require('../utils/errors/NotFoundError');
@@ -32,9 +32,9 @@ const getUserById = (req, res, id, next) => {
       if (err instanceof DocumentNotFoundError) {
         next(new NotFoundError('В базе данных не найден пользователь с данным ID.'));
       }
-      if (err instanceof CastError) {
-        next(new IncorrectDataError('Передан некорректный ID пользователя.'));
-      }
+      // if (err instanceof CastError) {
+      //   next(new IncorrectDataError('Передан некорректный ID пользователя.'));
+      // }
       next(err);
     });
 };
@@ -68,11 +68,11 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new IncorrectDataError('Переданы некорректные данные для создания пользователя.'));
-      }
-      if (err.code === 11000) {
+      } else if (err.code === 11000) {
         next(new ConflictError('Указанный email уже зарегистрирован. Пожалуйста используйте другой email'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -88,9 +88,6 @@ const updateInfo = (req, res, dataToUpdate, next) => {
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
         next(new NotFoundError(`В базе данных не найден пользователь с ID: ${req.user._id}.`));
-      }
-      if (err instanceof CastError) {
-        next(new IncorrectDataError(`Передан некорректный ID пользователя: ${req.user._id}.`));
       }
       if (err instanceof ValidationError) {
         next(new IncorrectDataError('Переданы некорректные данные для редактирования профиля.'));
